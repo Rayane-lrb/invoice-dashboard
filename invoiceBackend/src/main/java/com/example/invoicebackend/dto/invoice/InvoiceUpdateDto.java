@@ -4,74 +4,51 @@ import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class InvoiceUpdateDto {
 
-    @Size(max = 255)
-    String supplier;
+    private UUID supplierId;
 
     @Size(max = 64)
-    String invoiceNumber;
+    private String invoiceNumber;
 
     @PastOrPresent
-    LocalDate invoiceDate;
+    private LocalDate invoiceDate;
 
     @Positive
     @Digits(integer = 10, fraction = 2)
-    BigDecimal totalAmount;
+    private BigDecimal totalAmount;
 
-    @Pattern(regexp = "^[A-Za-z]{3}$")
-    String currency;
+    @Pattern(regexp = "^[A-Z]{3}$", message = "must be a 3-letter currency code")
+    private String currency;
 
     @PositiveOrZero
     @Digits(integer = 10, fraction = 2)
-    BigDecimal vatAmount;
+    private BigDecimal vatAmount;
 
-    public String getSupplier() {
-        return supplier;
-    }
+    public UUID getSupplierId() { return supplierId; }
+    public void setSupplierId(UUID supplierId) { this.supplierId = supplierId; }
 
-    public void setSupplier(String supplier) {
-        this.supplier = supplier;
-    }
+    public String getInvoiceNumber() { return invoiceNumber; }
+    public void setInvoiceNumber(String invoiceNumber) { this.invoiceNumber = blankToNull(invoiceNumber); }
 
-    public String getInvoiceNumber() {
-        return invoiceNumber;
-    }
+    public LocalDate getInvoiceDate() { return invoiceDate; }
+    public void setInvoiceDate(LocalDate invoiceDate) { this.invoiceDate = invoiceDate; }
 
-    public void setInvoiceNumber(String invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
-    }
+    public BigDecimal getTotalAmount() { return totalAmount; }
+    public void setTotalAmount(BigDecimal totalAmount) { this.totalAmount = totalAmount; }
 
-    public LocalDate getInvoiceDate() {
-        return invoiceDate;
-    }
-
-    public void setInvoiceDate(LocalDate invoiceDate) {
-        this.invoiceDate = invoiceDate;
-    }
-
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
+    public String getCurrency() { return currency; }
     public void setCurrency(String currency) {
-        this.currency = currency;
+        String c = blankToNull(currency);
+        this.currency = (c == null) ? null : c.toUpperCase();
     }
 
-    public BigDecimal getVatAmount() {
-        return vatAmount;
-    }
+    public BigDecimal getVatAmount() { return vatAmount; }
+    public void setVatAmount(BigDecimal vatAmount) { this.vatAmount = vatAmount; }
 
-    public void setVatAmount(BigDecimal vatAmount) {
-        this.vatAmount = vatAmount;
+    private static String blankToNull(String s) {
+        return (s == null || s.isBlank()) ? null : s.trim();
     }
 }

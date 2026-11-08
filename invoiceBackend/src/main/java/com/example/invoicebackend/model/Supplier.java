@@ -54,10 +54,6 @@ public class Supplier {
         return id;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -80,5 +76,9 @@ public class Supplier {
 
     public void setVatNumber(String vatNumber) {
         this.vatNumber = vatNumber;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 }

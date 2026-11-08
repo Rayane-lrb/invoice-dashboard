@@ -36,7 +36,13 @@ public class User {
         this.createdAt = Instant.now();
     }
 
-    public User() {
+    public User(String email, String passwordHash, UserRole role) {
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.role = role;
+    }
+
+    protected User() {
     }
 
     public UUID getId() {

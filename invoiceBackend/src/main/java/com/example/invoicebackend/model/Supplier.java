@@ -22,7 +22,7 @@ public class Supplier {
     @Column(name = "normalized_name", nullable = false, unique = true, length = 255)
     private String normalizedName;
 
-    @Column(name = "vat_number", length = 32)
+    @Column(name = "vat_number", unique = true, length = 32)
     private String vatNumber;
 
     @Column(name = "created_at", nullable = false, updatable = false)

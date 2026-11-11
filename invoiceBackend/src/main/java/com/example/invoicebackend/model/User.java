@@ -3,6 +3,7 @@ package com.example.invoicebackend.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -25,7 +26,7 @@ public class User {
     private String passwordHash;
 
     @Enumerated(EnumType.STRING)
-    @NotBlank
+    @NotNull
     @Column(name = "role", nullable = false)
     private UserRole role;
 
